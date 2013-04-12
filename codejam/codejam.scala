@@ -18,7 +18,7 @@ class CodeJam extends AutomaticCodeJamInputs {
   override def solveForCase(input: Vector[String]): String = {
     //assertEquals("2 3 4".toIntVector, Vector(2, 3, 4))
 
-    //Reverse words
+    //Reverse wordsk
     val first = input(0)
     first.reverse.split(" ").map(_.reverse).foldLeft("")(_ + " " + _).trim
   }

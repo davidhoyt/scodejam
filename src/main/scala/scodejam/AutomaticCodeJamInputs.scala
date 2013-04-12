@@ -32,7 +32,10 @@ trait AutomaticCodeJamInputs extends ScalaScript {
       throw new IllegalStateException("The outputs directory \"" + settings.outputsDir + "\" does not exist in the expected locaton: " + outputs_dir.getAbsolutePath)
 
     inputs_dir.listFiles().filter(f => f.isFile && f.getName.toLowerCase.endsWith(settings.validInputFileExtension)).foreach { input =>
-      val output = new File(settings.outputsDir, input.getName)
+      val input_name = input.getName
+      val output_name = input_name.substring(0, input_name.length - settings.validInputFileExtension.length) + settings.validOutputFileExtension
+      val output = new File(settings.outputsDir, output_name)
+
       outputProcessor.reset
       solveForFile(input, output, settings, inputProcessor, outputProcessor)
     }

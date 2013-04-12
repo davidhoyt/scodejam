@@ -5,7 +5,9 @@ trait CodeJamSettings {
   def inputsDir: String = "codejam/inputs/"
   def outputsDir: String = "codejam/outputs/"
 
-  def validInputFileExtension: String = ".txt"
+  def validOutputFileExtension: String = ".out"
+
+  def validInputFileExtension: String = ".in"
   def showProgressOutput: Boolean = true
 
   def maxWrongCasesBeforeStopping: Int = 3

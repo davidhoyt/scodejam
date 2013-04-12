@@ -1,5 +1,10 @@
 *.class
 *.log
+*.zip
+
+codejam/inputs/*.in
+codejam/outputs/*.out
+codejam/*.scala
 
 # sbt specific
 dist/*
