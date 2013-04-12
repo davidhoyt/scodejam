@@ -20,7 +20,7 @@ object Main extends App {
     compilationClassPath,
     runtimeClasspath
   )) with RefreshAsynchronously with FromClasspathFirst {
-    val recheckEveryMillis: Long = 2000 // each file will only be checked maximum once per second
+    val recheckEveryMillis: Long = 1000 // each file will only be checked maximum once per second
   }
 
   // delete all compiled classes (i.e. from previous runs)
@@ -52,6 +52,6 @@ object Main extends App {
       }
     }
 
-    Thread.sleep(2000)
+    Thread.sleep(1000)
   }
 }

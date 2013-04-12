@@ -36,7 +36,11 @@ trait AutomaticCodeJamInputs extends ScalaScript {
       outputProcessor.reset
       solveForFile(input, output, settings, inputProcessor, outputProcessor)
     }
+
+    onComplete()
   }
 
   def solveForCase(input: Vector[String]): String
+
+  def onComplete(): Unit
 }
