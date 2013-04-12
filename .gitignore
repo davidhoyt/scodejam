@@ -5,6 +5,7 @@
 codejam/inputs/*.in
 codejam/outputs/*.out
 codejam/*.scala
+solutions/
 
 # sbt specific
 dist/*

@@ -51,11 +51,14 @@ trait AutomaticCodeJamInputs extends ScalaScript {
   }
 
   def zipProject(): Unit = {
-    zipProject("dhoyt-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
+    val out_dir = new File("solutions/")
+    if (!out_dir.exists())
+      out_dir.mkdirs()
+    zipProject("solutions/dhoyt-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
   }
 
   def zipProject(out: String, directory: String = "."): Unit = {
-    Utils.zipProject(out, directory, Set("codejam/solutions/", "codejam/inputs/", "codejam/outputs/", ".git/", ".idea/", "target/"), Set("README.md","scodejam.iml", ".gitignore"))
+    Utils.zipProject(out, directory, Set("solutions/", "codejam/inputs/", "codejam/outputs/", ".git/", ".idea/", "target/"), Set("README.md","scodejam.iml", ".gitignore"))
   }
 
   def problemName: String
