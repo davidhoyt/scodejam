@@ -4,6 +4,7 @@ import scodejam.inputs._
 import scodejam.outputs._
 import scodejam.Utils._
 import scodejam.Assert._
+import scodejam.TupleUtil._
 import scodejam.StringUtil._
 
 class CodeJam extends AutomaticCodeJamInputs {
@@ -11,15 +12,15 @@ class CodeJam extends AutomaticCodeJamInputs {
   override implicit val inputProcessor = InputAsOneCasePerMultipleLines(linesPerCase = 1)
   override implicit val outputProcessor = OutputAsOneCasePerLine()
 
-  override val problemName = "reverse-words"
+  override val problemName = "speaking-in-tongues"
 
-  override def onComplete(): Unit = zipProject() //doNothing() //zipProject()
+  override def onComplete(): Unit = zipProject()
 
   override def solveForCase(input: Vector[String]): String = {
     //assertEquals("2 3 4".toIntVector, Vector(2, 3, 4))
+    val char_map = ("ejpmyslckdxvnribtahwougfqz" -> "ourlangeismpbtdhwyxfkjvczq").toCharMap
 
-    //Reverse words
     val first = input(0)
-    first.reverse.split(" ").map(_.reverse).foldLeft("")(_ + " " + _).trim
+    first.map(c => char_map.getOrElse(c, c))
   }
 }

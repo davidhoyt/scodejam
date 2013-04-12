@@ -2,9 +2,9 @@
 *.log
 *.zip
 
-codejam/inputs/*.in
-codejam/outputs/*.out
-codejam/*.scala
+codejam/inputs/
+codejam/outputs/
+codejam/
 solutions/
 
 # sbt specific
