@@ -38,7 +38,7 @@ trait AutomaticCodeJamInputs extends ScalaScript {
         throw new IllegalStateException("The outputs directory \"" + settings.outputsDir + "\" does not exist in the expected locaton: " + outputs_dir.getAbsolutePath)
     }
 
-    inputs_dir.listFiles().filter(f => f.isFile && f.getName.toLowerCase.endsWith(settings.validInputFileExtension)).foreach { input =>
+    inputs_dir.listFiles().filter(f => f.isFile && f.getName.startsWith(problemSet + "-") && f.getName.toLowerCase.endsWith(settings.validInputFileExtension)).foreach { input =>
       val input_name = input.getName
       val output_name = input_name.substring(0, input_name.length - settings.validInputFileExtension.length) + settings.validOutputFileExtension
       val output = new File(settings.outputsDir, output_name)
@@ -57,7 +57,7 @@ trait AutomaticCodeJamInputs extends ScalaScript {
     val out_dir = new File("solutions/")
     if (!out_dir.exists())
       out_dir.mkdirs()
-    zipProject("solutions/" + submitter + "-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
+    zipProject("solutions/" + settings.codeSubmitter + "-" + problemName.replace(' ', '-').toLowerCase + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
   }
 
   def zipProject(out: String, directory: String = "."): Unit = {
@@ -66,7 +66,7 @@ trait AutomaticCodeJamInputs extends ScalaScript {
 
   def onComplete(): Unit = doNothing()
 
-  def submitter: String
+  def problemSet: String
   def problemName: String
 
   def solveForCase(input: Vector[String]): String

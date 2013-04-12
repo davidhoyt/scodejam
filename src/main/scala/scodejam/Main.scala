@@ -15,6 +15,8 @@ object Main extends App {
   val outputDir = new File(System.getProperty("java.io.tmpdir"), "scala-script-engine-classes")
   outputDir.mkdir
 
+  val classpath = List(outputDir)// ++ compilationClassPath
+
   val sse = new ScalaScriptEngine(Config(
     List(SourcePath(sourceDir, outputDir)),
     compilationClassPath,
@@ -29,15 +31,41 @@ object Main extends App {
   var latest_version = 0
   while (true) {
     try {
-      val next_version = sse.refresh.version
+      val next_code_version = sse.refresh
+      val next_version = next_code_version.version
       if (next_version != latest_version) {
         latest_version = next_version
 
-        val t = sse.newInstance[ScalaScript]("CodeJam") //class name (w/o package)
+        sourceDir.listFiles().foreach { f =>
+          val name = f.getName
+          val expected_class_name = name.substring(0, name.length - ".scala".length)
 
-        println()
-        println("==== CODE VERSION %d ====".format(latest_version))
-        t.run
+          if (name.endsWith(".scala")) {
+            try {
+              //Thread.currentThread().setContextClassLoader(next_code_version.classLoader)
+              //val classes = ClassFinder(classpath).getClasses()
+              //val found = ClassFinder.concreteSubclasses(classOf[ScalaScript].getName, classes)
+
+              val t = sse.newInstance[ScalaScript](expected_class_name) //class name (w/o package)
+
+              val label = t match {
+                case c:AutomaticCodeJamInputs if t.isInstanceOf[AutomaticCodeJamInputs] => c.problemName
+                case _ => expected_class_name
+              }
+
+              println()
+              println("==== CODE VERSION %d [%s] ====".format(latest_version, label))
+              t.run
+
+            } catch {
+              case t: Throwable => {
+                Console.err.println()
+                Console.err.println("==== ERROR RUNNING CODE VERSION %d [%s] ====".format(latest_version, expected_class_name))
+                Console.err.println(t.getMessage)
+              }
+            }
+          }
+        }
       }
     } catch {
       case ce: CompilationError => {

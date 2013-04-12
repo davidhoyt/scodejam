@@ -12,12 +12,15 @@ trait CodeJamSettings {
 
   def maxWrongCasesBeforeStopping: Int = 3
 
+  def codeSubmitter: String = "<unknown submitter>"
+
   def print(output: => Any) = if (showProgressOutput) Console.print(output)
   def println(output: => Any) = if (showProgressOutput) Console.println(output)
 }
 
 object CodeJamSettings {
-  def apply(maxWrongCases: Int = 3, showProgress: Boolean = true) = new CodeJamSettings {
+  def apply(submitter: String = "<unknown submitter>", maxWrongCases: Int = 3, showProgress: Boolean = true) = new CodeJamSettings {
+    override val codeSubmitter = submitter
     override val showProgressOutput: Boolean = showProgress
     override val maxWrongCasesBeforeStopping: Int = maxWrongCases
   }
