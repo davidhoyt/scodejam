@@ -10,8 +10,9 @@ class InputAsOneCasePerMultipleLines(private val linesPerCase: Int) extends Inpu
     val expected_number_of_cases = iter.next().toInt
 
     var case_number: Long = 1L
+    var error_count: Int = 0
 
-    while(iter.hasNext) {
+    while(iter.hasNext && (settings.maxWrongCasesBeforeStopping <= 0 || error_count < settings.maxWrongCasesBeforeStopping)) {
       val case_content = iter.take(linesPerCase).toVector
       if (case_content.size == linesPerCase) {
         try {
@@ -20,6 +21,7 @@ class InputAsOneCasePerMultipleLines(private val linesPerCase: Int) extends Inpu
           fnCallback(result)
         } catch {
           case t: Throwable => {
+            error_count += 1
             settings.println("    - <ERROR> <EXCEPTION> %s".format(t.toString))
             fnCallback("")
           }
@@ -37,7 +39,11 @@ class InputAsOneCasePerMultipleLines(private val linesPerCase: Int) extends Inpu
     if (case_number == expected_number_of_cases) {
       settings.println("    - ** Completed all cases **")
     } else {
-      settings.println("    - ** <ERROR> Expected %d cases, but only %d were provided **".format(expected_number_of_cases, case_number))
+      if (error_count < settings.maxWrongCasesBeforeStopping) {
+        settings.println("    - ** <ERROR> Expected %d cases, but only %d were provided or evaluated **".format(expected_number_of_cases, case_number))
+      } else {
+        settings.println("    - ** <ERROR> Maximum # of errors (%d) was reached. Aborting further processing. **".format(settings.maxWrongCasesBeforeStopping))
+      }
     }
   }
 }
