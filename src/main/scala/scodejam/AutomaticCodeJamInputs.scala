@@ -57,7 +57,7 @@ trait AutomaticCodeJamInputs extends ScalaScript {
     val out_dir = new File("solutions/")
     if (!out_dir.exists())
       out_dir.mkdirs()
-    zipProject("solutions/dhoyt-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
+    zipProject("solutions/" + submitter + "-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
   }
 
   def zipProject(out: String, directory: String = "."): Unit = {
@@ -66,6 +66,7 @@ trait AutomaticCodeJamInputs extends ScalaScript {
 
   def onComplete(): Unit = doNothing()
 
+  def submitter: String
   def problemName: String
 
   def solveForCase(input: Vector[String]): String

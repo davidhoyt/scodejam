@@ -12,6 +12,7 @@ class CodeJam extends AutomaticCodeJamInputs {
   override implicit val inputProcessor = InputAsOneCasePerMultipleLines(linesPerCase = 1)
   override implicit val outputProcessor = OutputAsOneCasePerLine()
 
+  override val submitter = "jdoe"
   override val problemName = "speaking-in-tongues"
 
   override def onComplete(): Unit = zipProject()
