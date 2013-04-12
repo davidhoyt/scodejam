@@ -50,6 +50,9 @@ trait AutomaticCodeJamInputs extends ScalaScript {
     onComplete()
   }
 
+  def doNothing(): Unit = {
+  }
+
   def zipProject(): Unit = {
     val out_dir = new File("solutions/")
     if (!out_dir.exists())
@@ -61,9 +64,9 @@ trait AutomaticCodeJamInputs extends ScalaScript {
     Utils.zipProject(out, directory, Set("solutions/", "codejam/inputs/", "codejam/outputs/", ".git/", ".idea/", "target/"), Set("README.md","scodejam.iml", ".gitignore"))
   }
 
+  def onComplete(): Unit = doNothing()
+
   def problemName: String
 
   def solveForCase(input: Vector[String]): String
-
-  def onComplete(): Unit
 }

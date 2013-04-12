@@ -13,7 +13,7 @@ class CodeJam extends AutomaticCodeJamInputs {
 
   override val problemName = "reverse-words"
 
-  override def onComplete(): Unit = zipProject()
+  override def onComplete(): Unit = zipProject() //doNothing() //zipProject()
 
   override def solveForCase(input: Vector[String]): String = {
     //assertEquals("2 3 4".toIntVector, Vector(2, 3, 4))
