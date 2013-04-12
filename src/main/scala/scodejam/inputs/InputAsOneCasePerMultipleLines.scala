@@ -6,7 +6,7 @@ class InputAsOneCasePerMultipleLines(private val linesPerCase: Int) extends Inpu
   if (linesPerCase < 1)
     throw new IllegalArgumentException("There must be at least 1 line per case")
 
-  override def process(settings: CodeJamSettings, iter: Iterator[String], fn: => FnInputProcessor): Unit = {
+  override def process(settings: CodeJamSettings, iter: Iterator[String])(fn: => FnInputProcessor)(fnCallback: FnInputCallback): Unit = {
     val expected_number_of_cases = iter.next().toInt
 
     var case_number: Long = 1L
@@ -17,9 +17,11 @@ class InputAsOneCasePerMultipleLines(private val linesPerCase: Int) extends Inpu
         try {
           val result = fn(case_content)
           settings.println("    - <SUCCESS> Case #%d: %s".format(case_number, result))
+          fnCallback(result)
         } catch {
           case t: Throwable => {
             settings.println("    - <ERROR> <EXCEPTION> %s".format(t.toString))
+            fnCallback("")
           }
         } finally {
           case_number += 1L

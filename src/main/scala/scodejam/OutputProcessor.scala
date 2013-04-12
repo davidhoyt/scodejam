@@ -1,7 +1,6 @@
 package scodejam
 
 trait OutputProcessor {
-   def process(): Unit = {
-     println("OUTPUT PROCESSOR")
-   }
- }
+  def reset
+  def process(writer: java.io.PrintWriter)(result: String): Unit
+}
