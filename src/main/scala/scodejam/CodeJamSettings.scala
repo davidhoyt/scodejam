@@ -12,6 +12,8 @@ trait CodeJamSettings {
 
   def maxWrongCasesBeforeStopping: Int = 3
 
+  def skipRun: Boolean = false
+
   def codeSubmitter: String = "<unknown submitter>"
 
   def print(output: => Any) = if (showProgressOutput) Console.print(output)
@@ -19,7 +21,8 @@ trait CodeJamSettings {
 }
 
 object CodeJamSettings {
-  def apply(submitter: String = "<unknown submitter>", maxWrongCases: Int = 3, showProgress: Boolean = true) = new CodeJamSettings {
+  def apply(submitter: String = "<unknown submitter>", skip: Boolean = false, maxWrongCases: Int = 3, showProgress: Boolean = true) = new CodeJamSettings {
+    override val skipRun = skip
     override val codeSubmitter = submitter
     override val showProgressOutput: Boolean = showProgress
     override val maxWrongCasesBeforeStopping: Int = maxWrongCases
