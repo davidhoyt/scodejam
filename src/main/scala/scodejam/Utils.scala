@@ -19,14 +19,6 @@ object Utils {
     }
   }
 
-  def zipProject(): Unit = {
-    zipProject("dhoyt-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
-  }
-
-  def zipProject(out: String, directory: String = "."): Unit = {
-    zipProject(out, directory, Set("codejam/inputs/", "codejam/outputs/", ".git/", ".idea/", "target/"), Set("README.md","scodejam.iml", ".gitignore"))
-  }
-
   def zipProject(out: String, directory: String, exclusionsStartsWith: Iterable[String], exclusionsEndsWith: Iterable[String]): Unit = {
     import java.io.{ BufferedInputStream, FileInputStream, FileOutputStream, File }
     import java.util.zip.{ ZipEntry, ZipOutputStream }

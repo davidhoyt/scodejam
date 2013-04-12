@@ -4,6 +4,7 @@ import scodejam.inputs.InputAsOneCasePerLine
 import java.io.File
 import scodejam.outputs.OutputAsOneCasePerLine
 import scodejam.Utils._
+import java.util.Calendar
 
 trait AutomaticCodeJamInputs extends ScalaScript {
   implicit def settings: CodeJamSettings = StandardCodeJamSettings
@@ -42,6 +43,16 @@ trait AutomaticCodeJamInputs extends ScalaScript {
 
     onComplete()
   }
+
+  def zipProject(): Unit = {
+    zipProject("dhoyt-" + problemName + "-google-codejam-" + (Calendar.getInstance().get(Calendar.YEAR)) + ".zip")
+  }
+
+  def zipProject(out: String, directory: String = "."): Unit = {
+    Utils.zipProject(out, directory, Set("codejam/solutions/", "codejam/inputs/", "codejam/outputs/", ".git/", ".idea/", "target/"), Set("README.md","scodejam.iml", ".gitignore"))
+  }
+
+  def problemName: String
 
   def solveForCase(input: Vector[String]): String
 
