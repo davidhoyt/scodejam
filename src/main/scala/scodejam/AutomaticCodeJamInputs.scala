@@ -25,12 +25,18 @@ trait AutomaticCodeJamInputs extends ScalaScript {
 
   private[this] def run(implicit settings: CodeJamSettings, inputProcessor: InputProcessor, outputProcessor: OutputProcessor): Unit = {
     val inputs_dir = new File(settings.inputsDir)
-    if (!inputs_dir.exists())
-      throw new IllegalStateException("The inputs directory \"" + settings.inputsDir + "\" does not exist in the expected locaton: " + inputs_dir.getAbsolutePath)
+    if (!inputs_dir.exists()) {
+      inputs_dir.mkdirs()
+      if (!inputs_dir.exists())
+        throw new IllegalStateException("The inputs directory \"" + settings.inputsDir + "\" does not exist in the expected locaton: " + inputs_dir.getAbsolutePath)
+    }
 
     val outputs_dir = new File(settings.outputsDir)
-    if (!outputs_dir.exists())
-      throw new IllegalStateException("The outputs directory \"" + settings.outputsDir + "\" does not exist in the expected locaton: " + outputs_dir.getAbsolutePath)
+    if (!outputs_dir.exists()) {
+      outputs_dir.mkdirs()
+      if (!outputs_dir.exists())
+        throw new IllegalStateException("The outputs directory \"" + settings.outputsDir + "\" does not exist in the expected locaton: " + outputs_dir.getAbsolutePath)
+    }
 
     inputs_dir.listFiles().filter(f => f.isFile && f.getName.toLowerCase.endsWith(settings.validInputFileExtension)).foreach { input =>
       val input_name = input.getName
