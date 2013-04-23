@@ -2,7 +2,7 @@ package scodejam.inputs
 
 import scodejam.InputProcessor
 
-class InputAsOneCasePerMultipleLines(private[this] val linesPerCase: Int) extends StandardInputProcessor {
+class InputAsOneCasePerMultipleLines(private[this] val linesPerCase: Int) extends InputWithVector {
   if (linesPerCase < 1)
     throw new IllegalArgumentException("There must be at least 1 line per case")
 

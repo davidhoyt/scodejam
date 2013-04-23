@@ -23,6 +23,6 @@ import scodejam.StringUtil._
  * 1 3
  * 1 2 1
  */
-object InputAsLineMatrix extends StandardInputProcessor {
+object InputAsLineMatrix extends InputWithVector {
   override def determineNextCaseSize(iter: Iterator[String]): Int = iter.next().toIntVector(0) //Get the first # from the input
 }

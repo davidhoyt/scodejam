@@ -1,15 +1,15 @@
 package scodejam
 
-import scodejam.inputs.InputAsOneCasePerLine
+import scodejam.inputs.{InputWithIterator, VectorInput, InputAsOneCasePerLine}
 import java.io.File
 import scodejam.outputs.OutputAsOneCasePerLine
 import scodejam.Utils._
 import java.util.Calendar
 
 trait AutomaticCodeJamInputs extends ScalaScript {
-  implicit def settings: CodeJamSettings = StandardCodeJamSettings
-  implicit def inputProcessor: InputProcessor = InputAsOneCasePerLine
+  implicit def inputProcessor: InputProcessor = InputWithIterator
   implicit def outputProcessor: OutputProcessor = OutputAsOneCasePerLine
+  implicit def settings: CodeJamSettings = StandardCodeJamSettings
 
   override def run: Unit = run(settings, inputProcessor, outputProcessor)
 
@@ -73,5 +73,5 @@ trait AutomaticCodeJamInputs extends ScalaScript {
   def problemSet: String
   def problemName: String
 
-  def solveForCase(input: Vector[String]): String
+  def solveForCase(input: Iterator[String]): Any
 }

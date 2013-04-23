@@ -2,7 +2,7 @@ package scodejam.inputs
 
 import scodejam.{CodeJamSettings, InputProcessor}
 
-trait StandardInputProcessor extends InputProcessor {
+trait InputWithVector extends InputProcessor with VectorInput {
   def determineExpectedNumberOfCases(iter: Iterator[String]): Int = iter.next().toInt
   def determineNextCaseSize(iter: Iterator[String]): Int
   def extractNextCase(expected_case_size: Int, iter: Iterator[String]): Vector[String] = iter.take(expected_case_size).toVector
@@ -19,7 +19,7 @@ trait StandardInputProcessor extends InputProcessor {
       val case_content = extractNextCase(expected_case_content_size, iter)
       if (caseSizeIsCorrect(expected_case_content_size, case_content)) {
         try {
-          val result = fn(case_content)
+          val result = fn(case_content.toIterator)
           settings.println("    - <SUCCESS> Case #%d: %s".format(case_number, result))
           fnCallback(result)
         } catch {

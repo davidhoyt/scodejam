@@ -28,7 +28,7 @@ import scodejam.InputProcessor
  * 2
  * 0 0
  */
-class InputAsSections extends StandardInputProcessor {
+class InputAsSections extends InputWithVector {
   private[this] var case_header: String = ""
 
   override def determineNextCaseSize(iter: Iterator[String]): Int = {

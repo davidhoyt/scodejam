@@ -7,8 +7,8 @@ class OutputAsOneCasePerLine() extends OutputProcessor {
 
   override def reset = case_count = 1L
 
-  override def process(writer: java.io.PrintWriter)(result: String): Unit = {
-    writer.println("Case #%d: %s".format(case_count, result))
+  override def process(writer: java.io.PrintWriter)(result: Any): Unit = {
+    writer.println("Case #%d: %s".format(case_count, result.toString))
     writer.flush()
     case_count += 1
   }
