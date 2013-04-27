@@ -108,6 +108,17 @@ object StringUtil {
 
     def toIntVector: Vector[Int] = toIntVector()
     def toIntVector(split: String = " "): Vector[Int] = s.split(" ").map(_.trim.toInt).toVector
+
+    /** Returns the string converted into a (Int, Int) tuple. */
+    def toIntTuple2: (Int, Int) = toIntTuple2()
+
+    /** Returns the string converted into a (Int, Int) tuple. */
+    def toIntTuple2(split: String = " "): (Int, Int) = {
+      val v = s.toIntVector(split)
+      if (v.length != 2)
+        throw new IllegalArgumentException("Invalid string to split into a tuple (Int, Int)")
+      (v(0), v(1))
+    }
   }
 }
 

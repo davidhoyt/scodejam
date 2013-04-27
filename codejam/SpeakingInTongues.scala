@@ -17,7 +17,7 @@ class SpeakingInTongues extends AutomaticCodeJamInputs {
   override val problemSet  = "Z"
   override val problemName = "Speaking-In-Tongues"
 
-  override val settings = CodeJamSettings(skip = false, submitter = "dhoyt", maxWrongCases = 1, showProgress = true)
+  override val settings = CodeJamSettings(skip = true, submitter = "dhoyt", maxWrongCases = 1, showProgress = true)
 
   override def solveForCase(input: Iterator[String]): Any = {
     val char_map = ("ejpmyslckdxvnribtahwougfqz" -> "ourlangeismpbtdhwyxfkjvczq").toCharMap
